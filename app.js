@@ -124,22 +124,39 @@ function error() {
 
 // intersection observer api
 const nav = document.getElementById('nav')
+const ul = document.getElementById('ul')
+const boxs = document.querySelectorAll('.box')
 
-function callback(entries) {
+function callback(entries, observer) {
     const [entry] = entries
-    // console.log(entry);
+    console.log(entry);
     if (entry.isIntersecting)
-        nav.classList.add('fixed')
-    else
-        nav.classList.remove('fixed')
+        entry.target.textContent = entry.target.dataset.name
 }
+// function callback(entries) {
+//     const [entry] = entries
+//     // console.log(entry);
+//     if (entry.isIntersecting)
+//         nav.classList.add('fixed')
+//     else
+//         nav.classList.remove('fixed')
+// }
 
 const options = {
     root: null,
-    threshold: 0.7
+    threshold: 0.9
 }
-
-const box = document.querySelector('.box')
+// const box = document.querySelector('.box')
 const observer = new IntersectionObserver(callback, options)
 
-observer.observe(box)
+boxs.forEach((box) => {
+    observer.observe(box)
+})
+
+// smooth scrolling behaviour
+
+const h1 = document.getElementById('heading')
+const box2 = document.getElementById('box2')
+h1.addEventListener('click', () => {
+    box2.scrollIntoView({ behavior: "smooth" })
+})
