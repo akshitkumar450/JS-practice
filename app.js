@@ -51,12 +51,32 @@ const country1 = async (name) => {
         console.log(data[0]);
         if (!data[0]) throw new Error('country not found')
         renderCountry(data[0])
+        return 'akshit'
     }
     catch (err) {
         alert(err.message)
+        throw err
     }
 
 }
+// async functions return promises
+
+// const returnedAns = country1('india')
+// console.log(returnedAns);
+// country1('india')
+//     .then(data => console.log(data))
+//     .catch(err => console.log(err.message))
+
+(async function () {
+    try {
+        const data = await country1('india')
+        console.log(data);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+
+})()
 
 document.getElementById('btn').addEventListener('click', (e) => {
     e.preventDefault()
