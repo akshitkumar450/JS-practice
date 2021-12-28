@@ -351,3 +351,28 @@ const addTaxRate = function (rate) {
 const addVAT2 = addTaxRate(0.23);
 console.log(addVAT2(100));
 console.log(addVAT2(23));
+
+///////////////////////////////////////
+// function returning function
+
+function sayHello() {
+    return function () {
+        console.log('this is the inner function');
+    }
+}
+// const innerFunc = sayHello()
+// innerFunc()
+// or
+// sayHello()()
+
+
+const greet = function (greeting) {
+    return function (name) {
+        console.log(`${greeting} ${name}`);
+    };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('Jonas');
+
+greet('Hello')('Jonas');
