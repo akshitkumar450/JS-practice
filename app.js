@@ -129,11 +129,13 @@ const boxs = document.querySelectorAll('.box')
 
 function callback(entries, observer) {
     const [entry] = entries
+    // console.log(entry.isIntersecting);
     console.log(entry);
     if (entry.isIntersecting)
         entry.target.textContent = entry.target.dataset.name
 }
 // function callback(entries) {
+// entries are the array of threshold
 //     const [entry] = entries
 //     // console.log(entry);
 //     if (entry.isIntersecting)
@@ -143,13 +145,14 @@ function callback(entries, observer) {
 // }
 
 const options = {
-    root: null,
+    root: null, //viewport
     threshold: 0.9
 }
 // const box = document.querySelector('.box')
 const observer = new IntersectionObserver(callback, options)
 
 boxs.forEach((box) => {
+    // the call back function will run each time our target (box) will intersect each time on scrolling in/out of the viewport (root) with our (root i.e, viewport)
     observer.observe(box)
 })
 
@@ -159,4 +162,10 @@ const h1 = document.getElementById('heading')
 const box2 = document.getElementById('box2')
 h1.addEventListener('click', () => {
     box2.scrollIntoView({ behavior: "smooth" })
+})
+
+// show and hide element on scrolling
+h1.classList.add('animate')
+window.addEventListener('scroll', () => {
+    h1.classList.remove('animate')
 })

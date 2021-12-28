@@ -60,3 +60,8 @@ ul>li:hover{
 .show{
  opacity: 1;
 }
+
+.animate{
+    opacity: 0;
+    transform: translateY(8rem);
+}
