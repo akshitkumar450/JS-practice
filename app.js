@@ -7,7 +7,7 @@ const renderCountry = (data) => {
         (${data?.capital && data?.capital[0]})</h3>
     </div>
     `
-    document.getElementById('section').insertAdjacentHTML('beforeend', html)
+    document.getElementById('formContainer').insertAdjacentHTML('afterend', html)
 }
 
 const inputValue = document.getElementById('input')
@@ -120,4 +120,26 @@ function error() {
     console.error('unable to find location');
 }
 
-navigator.geolocation.getCurrentPosition(success, error)
+// navigator.geolocation.getCurrentPosition(success, error)
+
+// intersection observer api
+const nav = document.getElementById('nav')
+
+function callback(entries) {
+    const [entry] = entries
+    // console.log(entry);
+    if (entry.isIntersecting)
+        nav.classList.add('fixed')
+    else
+        nav.classList.remove('fixed')
+}
+
+const options = {
+    root: null,
+    threshold: 0.7
+}
+
+const box = document.querySelector('.box')
+const observer = new IntersectionObserver(callback, options)
+
+observer.observe(box)
