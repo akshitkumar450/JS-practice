@@ -107,3 +107,17 @@ const myPromise = new Promise((resolve, reject) => {
 myPromise
     .then((data) => console.log(data))
     .catch((err) => console.error(err.message))
+
+
+// geolocation api
+function success(position) {
+    console.log(position);
+    const { latitude: lat, longitude: lng } = position.coords
+    console.log(lat, lng);
+}
+
+function error() {
+    console.error('unable to find location');
+}
+
+navigator.geolocation.getCurrentPosition(success, error)
