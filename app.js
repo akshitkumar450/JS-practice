@@ -326,3 +326,28 @@ lufthansa.buyPlane = function () {
 
 // for this to point to lufthansa object we need to bind it
 dom.addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// bind method application
+
+// Partial application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+// first para is this ,,in this case we don't want to set this keyword so null
+// rate is set here 
+const addVAT = addTax.bind(null, 0.23);
+// addVAT = value => value + value * 0.23;
+
+// value is used as a parameter as we have already set rate in bind method
+
+console.log(addVAT(100));
+console.log(addVAT(23));
+
+const addTaxRate = function (rate) {
+    return function (value) {
+        return value + value * rate;
+    };
+};
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(100));
+console.log(addVAT2(23));
