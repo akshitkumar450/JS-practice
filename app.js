@@ -67,19 +67,43 @@ const country1 = async (name) => {
 //     .then(data => console.log(data))
 //     .catch(err => console.log(err.message))
 
-(async function () {
-    try {
-        const data = await country1('india')
-        console.log(data);
-    }
-    catch (err) {
-        console.log(err.message);
-    }
+// (async function () {
+//     try {
+//         const data = await country1('india')
+//         console.log(data);
+//     }
+//     catch (err) {
+//         console.log(err.message);
+//     }
 
-})()
+// })()
 
 document.getElementById('btn').addEventListener('click', (e) => {
     e.preventDefault()
     country1(inputValue.value)
     inputValue.value = ''
 })
+
+// creating our own promise
+
+const win = () => {
+    return 'i win'
+}
+const loose = () => {
+    return new Error('i loose')
+}
+
+const myPromise = new Promise((resolve, reject) => {
+    console.log('first');
+    setTimeout(() => {
+        if (Math.random() > 0.5) {
+            resolve(win())
+        } else {
+            reject(loose())
+        }
+    }, 200)
+})
+
+myPromise
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err.message))
