@@ -108,6 +108,7 @@ document.getElementById('btn').addEventListener('click', (e) => {
 //     .then((data) => console.log(data))
 //     .catch((err) => console.error(err.message))
 
+/////////////////////////////////////////////////////
 
 // geolocation api
 function success(position) {
@@ -121,6 +122,8 @@ function error() {
 }
 
 // navigator.geolocation.getCurrentPosition(success, error)
+
+////////////////////////////////////////////////
 
 // intersection observer api
 const nav = document.getElementById('nav')
@@ -170,26 +173,156 @@ window.addEventListener('scroll', () => {
     h1.classList.remove('animate')
 })
 
+///////////////////////////////////////////////
 // DOM Travsersal
 const dom = document.getElementById('dom')
 
 // selecting child (going downwards)
 
 // querySelector works on both document and elements
-console.log(dom.querySelectorAll('span'));
-console.log(dom.children); //direct childs only
-console.log(dom.firstElementChild.textContent); //select only first child
-console.log(dom.lastElementChild.textContent); //select only first child
-console.log(dom.firstChild);
+// console.log(dom.querySelectorAll('span'));
+// console.log(dom.children); //all direct childs only
+// console.log(dom.firstElementChild.textContent); //select only first child
+// console.log(dom.lastElementChild.textContent); //select only first child
+// console.log(dom.firstChild);
 
-// goind upward (parent)
+// // goind upward (parent)
 
-// console.log(dom.parentNode);
-// console.log(dom.parentElement);
-console.log(dom.closest('#domContainer')); //returns the closest parent
+// // console.log(dom.parentNode);
+// // console.log(dom.parentElement);
+// console.log(dom.closest('#domContainer')); //returns the closest parent
 
-//selecting siblings
+// //selecting siblings
 
-const hide = document.querySelector('.hide')
-console.log(hide.previousElementSibling); //previous direct sibling
-console.log(hide.nextElementSibling); //next element sibling
+// const hide = document.querySelector('.hide')
+// console.log(hide.previousElementSibling); //previous direct sibling
+// console.log(hide.nextElementSibling); //next element sibling
+
+///////////////////////////////////////////////
+// call ,bind and apply methods
+
+// const person1 = {
+//     firstName: 'John',
+//     lastName: 'wick',
+//     age: 45,
+//     intro: function () {
+//         console.log(`my name is ${this.firstName} ${this.lastName} and i am ${this.age} years old`);
+//     }
+// }
+
+// const person2 = {
+//     firstName: 'tommy',
+//     lastName: 'wood',
+//     age: 33,
+//     intro: function () {
+//         console.log(`my name is ${this.firstName} ${this.lastName} and i am ${this.age} years old`);
+//     }
+// }
+
+// better approach
+
+const person1 = {
+    firstName: 'John',
+    lastName: 'wick',
+    age: 45,
+}
+
+const person2 = {
+    firstName: 'tommy',
+    lastName: 'wood',
+    age: 33,
+}
+
+const intro = function (currYear = 2021, location = 'india') {
+    // console.log(this);
+    console.log(`my name is ${this.firstName} ${this.lastName} and i am ${this.age} years old in ${currYear} and staying in ${location}`);
+}
+// it will not work bcz this is point to window object as it is a regular function
+// intro()
+
+// intro method is used in both the objects and it is not good practice and avoids DRY principle
+
+// person1.intro()
+// person2.intro()
+
+// call method 
+//this will call the method with the this keyword set to the object which is mentioned
+// first parameter is to specify on which we want to this to point oo the object
+// from second parameter onwards for any additional argument
+intro.call(person1, 2025, 'usa')
+intro.call(person2, 1999)
+
+// apply method
+// this is same as the call method except that it takes parameter as an array
+// this will directly call the method
+intro.apply(person1, [2024, 'china'])
+const ops = [2030, 'london']
+intro.apply(person2, ops)
+
+// new way of using apply method
+intro.call(person1, ...ops)
+
+// bind method
+// this method will return a new function after binding this to the object and then we can call that function and on that function we can pass the arguments
+
+const person1Call = intro.bind(person1)
+person1Call(2060, 'chennai')
+
+// setting one of the parameter
+// but we can't set second parameter without setting first one..so parameter order matters
+const person2Call = intro.bind(person2, 2045)
+person2Call('paris')
+
+const person2Call1 = intro.bind(person1, 2039, 'florida')
+person2Call1()
+
+/////////////////////////////////////////////
+// new way of writing methods in objects
+
+const lufthansa = {
+    airline: 'Lufthansa',
+    iataCode: 'LH',
+    bookings: [],
+    // book1: function (flightNum, name) {
+    //     console.log(
+    //         `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    //     );
+    //     this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+    // },
+
+    // we can skip the {:function} keyword 
+    // newer way of writing methods in an object
+    book2(flightNum, name) {
+        console.log(
+            `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+        );
+        this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+    },
+};
+
+lufthansa.book2(239, 'Jonas');
+// lufthansa.book1(635, 'John Smith');
+// lufthansa.book2(239, 'Jonas');
+// lufthansa.book2(635, 'John Smith');
+
+// With Event Listeners
+// on event listeners this will point to the element on which event handler is attached
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+    console.log(this);
+
+    this.planes++;
+    console.log(this.planes);
+};
+
+// this will point to lufthansa
+// bcz this will point to object calling the method and in this case this will point to lufthansa as it is calling the method
+
+// lufthansa.buyPlane()
+
+// lufthansa.buyPlane is attached to dom element
+// so this will point to dom (h1 element)
+// dom.addEventListener('click', lufthansa.buyPlane);
+
+// for this to point to lufthansa object we need to bind it
+dom.addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
