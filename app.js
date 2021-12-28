@@ -86,27 +86,27 @@ document.getElementById('btn').addEventListener('click', (e) => {
 
 // creating our own promise
 
-const win = () => {
-    return 'i win'
-}
-const loose = () => {
-    return new Error('i loose')
-}
+// const win = () => {
+//     return 'i win'
+// }
+// const loose = () => {
+//     return new Error('i loose')
+// }
 
-const myPromise = new Promise((resolve, reject) => {
-    console.log('first');
-    setTimeout(() => {
-        if (Math.random() > 0.5) {
-            resolve(win())
-        } else {
-            reject(loose())
-        }
-    }, 200)
-})
+// const myPromise = new Promise((resolve, reject) => {
+//     // console.log('first');
+//     setTimeout(() => {
+//         if (Math.random() > 0.5) {
+//             resolve(win())
+//         } else {
+//             reject(loose())
+//         }
+//     }, 200)
+// })
 
-myPromise
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err.message))
+// myPromise
+//     .then((data) => console.log(data))
+//     .catch((err) => console.error(err.message))
 
 
 // geolocation api
@@ -153,7 +153,7 @@ const observer = new IntersectionObserver(callback, options)
 
 boxs.forEach((box) => {
     // the call back function will run each time our target (box) will intersect each time on scrolling in/out of the viewport (root) with our (root i.e, viewport)
-    observer.observe(box)
+    // observer.observe(box)
 })
 
 // smooth scrolling behaviour
@@ -169,3 +169,27 @@ h1.classList.add('animate')
 window.addEventListener('scroll', () => {
     h1.classList.remove('animate')
 })
+
+// DOM Travsersal
+const dom = document.getElementById('dom')
+
+// selecting child (going downwards)
+
+// querySelector works on both document and elements
+console.log(dom.querySelectorAll('span'));
+console.log(dom.children); //direct childs only
+console.log(dom.firstElementChild.textContent); //select only first child
+console.log(dom.lastElementChild.textContent); //select only first child
+console.log(dom.firstChild);
+
+// goind upward (parent)
+
+// console.log(dom.parentNode);
+// console.log(dom.parentElement);
+console.log(dom.closest('#domContainer')); //returns the closest parent
+
+//selecting siblings
+
+const hide = document.querySelector('.hide')
+console.log(hide.previousElementSibling); //previous direct sibling
+console.log(hide.nextElementSibling); //next element sibling
