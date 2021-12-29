@@ -215,3 +215,55 @@ const ingredients = [
 
 // restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
 // restaurant.orderPizza('mushrooms');
+
+///////////////////////////////////////
+// Short Circuiting (&& and ||)
+
+// console.log('---- OR ----');
+// || operator will return the first truthy value of all operands or the last value if all are falsy
+
+// Use ANY data type, return ANY data type, short-circuiting
+// console.log(3 || 'Jonas');
+// console.log('' || 'Jonas');
+// console.log(true || 0);
+// console.log(undefined || null); //null
+
+// console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+
+// restaurant.numGuests = 0;
+// const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+// console.log(guests1);
+
+// to set default values
+// const guests2 = restaurant.numGuests || 10;
+// console.log(guests2);
+
+// console.log('---- AND ----');
+// && operator returns the first falsy value
+// and if all are true then the last value is returned
+// console.log(0 && 'Jonas');
+// console.log(7 && 'Jonas');
+
+// console.log('Hello' && 23 && null && 'jonas'); //null
+// console.log('Hello' && 23 && 'say ' && 'jonas'); //jonas
+
+// Practical example
+// if (restaurant.orderPizza) {
+//     restaurant.orderPizza('mushrooms', 'spinach');
+// }
+
+//   if the first value is true then it will return the second
+
+// restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+
+///////////////////////////////////////
+// The Nullish Coalescing Operator
+restaurant.numGuests = 0;
+//falsy value and we go to second parameter, but that is incorrect bcz 
+// numguests is equal to 0(zero) so want guests as 0
+const guests = restaurant.numGuests || 10;
+console.log(guests);
+
+// Nullish: null and undefined only not falsy values (NOT 0 or '')
+const guestCorrect = restaurant.numGuests ?? 10;
+console.log(guestCorrect);
