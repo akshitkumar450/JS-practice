@@ -222,3 +222,18 @@ btnClose.addEventListener('click', (e) => {
         containerApp.style.opacity = '0'
     }
 })
+
+btnLoan.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const amount = Number(inputLoanAmount.value);
+
+    if (amount > 0 && loggedInUser.movements.some(mov => mov >= amount * 0.1)) {
+        // Add movement
+        loggedInUser.movements.push(amount);
+
+        // Update UI
+        updateUI(loggedInUser);
+    }
+    inputLoanAmount.value = '';
+});
