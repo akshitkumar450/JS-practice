@@ -169,9 +169,22 @@ const eurToUsd = 1.1;
 // const totalDepositsUSD = movements
 //     .filter(mov => mov > 0)
 //     .map((mov, i, arr) => {
-        // console.log(arr);
+// console.log(arr);
 //         return mov * eurToUsd;
 //     })
-    // .map(mov => mov * eurToUsd)
+// .map(mov => mov * eurToUsd)
 //     .reduce((acc, mov) => acc + mov, 0);
 // console.log(totalDepositsUSD);
+
+//////////////////////////////////////
+// The find Method
+// returns first the value satisfying condtn
+
+// const firstWithdrawal = movements.find(mov => mov < 0);
+// console.log(movements);
+// console.log(firstWithdrawal);
+
+// console.log(accounts);
+
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+// console.log(account);
