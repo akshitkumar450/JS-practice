@@ -91,7 +91,7 @@ const displayMovements = (movements) => {
     })
 }
 
-displayMovements(account1.movements)
+// displayMovements(account1.movements)
 
 // computing usernames for each account
 
@@ -116,27 +116,27 @@ const displayBalance = (movements) => {
     labelBalance.textContent = `${balance} € `
 }
 
-displayBalance(account1.movements)
+// displayBalance(account1.movements)
 
 // display summary
 
-const displaySummary = (movements) => {
+const displaySummary = (account) => {
     const incomes =
-        movements
+        account.movements
             .filter((mov) => mov > 0)
             .reduce((acc, mov) => acc + mov, 0)
     labelSumIn.textContent = `${incomes} € `
 
     const out =
-        movements
+        account.movements
             .filter((mov) => mov < 0)
             .reduce((acc, mov) => acc + mov, 0)
     labelSumOut.textContent = `${Math.abs(out)} € `
 
     const interest =
-        movements
+        account.movements
             .filter((mov) => mov > 0)
-            .map((mov) => mov * 1.2 / 100)
+            .map((mov) => mov * account.interestRate / 100)
             .filter((intst, i, arr) => {
                 // console.log(arr);
                 return intst >= 1
@@ -145,4 +145,29 @@ const displaySummary = (movements) => {
     labelSumInterest.textContent = `${interest} € `
 }
 
-displaySummary(account1.movements)
+// displaySummary(account1.movements)
+
+// login feature
+let loggedInUser;
+
+btnLogin.addEventListener('click', (e) => {
+    e.preventDefault()
+    const username = inputLoginUsername.value
+    const pin = +inputLoginPin.value
+    // console.log(username, typeof pin);
+    loggedInUser = accounts.find((acc) => acc.username === username)
+    // console.log(loggedInUser);
+    if (loggedInUser?.pin === pin) {
+        // welcome message
+        labelWelcome.textContent = `welocome back ${loggedInUser.owner.split(" ")[0]}`
+        containerApp.style.opacity = '1'
+        // showing the UI
+        displayMovements(loggedInUser.movements)
+        displaySummary(loggedInUser)
+        displayBalance(loggedInUser.movements)
+        // clear the input fields
+        inputLoginUsername.value = inputLoginPin.value = ''
+        // to loose focus from pin input field
+        inputLoginPin.blur()
+    }
+})
