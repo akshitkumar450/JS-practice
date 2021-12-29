@@ -111,8 +111,9 @@ displayUserNames(accounts)
 
 // displaying balance
 
-const displayBalance = (movements) => {
-    const balance = movements.reduce((acc, mov) => acc + mov, 0)
+const displayBalance = (account) => {
+    const balance = account.movements.reduce((acc, mov) => acc + mov, 0)
+    account.balance = balance
     labelBalance.textContent = `${balance} € `
 }
 
@@ -147,6 +148,11 @@ const displaySummary = (account) => {
 
 // displaySummary(account1.movements)
 
+const updateUI = (acc) => {
+    displayMovements(acc.movements)
+    displaySummary(acc)
+    displayBalance(acc)
+}
 // login feature
 let loggedInUser;
 
@@ -162,12 +168,34 @@ btnLogin.addEventListener('click', (e) => {
         labelWelcome.textContent = `welocome back ${loggedInUser.owner.split(" ")[0]}`
         containerApp.style.opacity = '1'
         // showing the UI
-        displayMovements(loggedInUser.movements)
-        displaySummary(loggedInUser)
-        displayBalance(loggedInUser.movements)
+        updateUI(loggedInUser)
         // clear the input fields
         inputLoginUsername.value = inputLoginPin.value = ''
         // to loose focus from pin input field
         inputLoginPin.blur()
+    }
+})
+
+// transfer amount
+
+btnTransfer.addEventListener('click', (e) => {
+    e.preventDefault()
+    const transferName = inputTransferTo.value
+    const transferAmount = +inputTransferAmount.value
+    // console.log(transferName, transferAmount);
+    const receiver = accounts.find((acc) => acc.username === transferName)
+    // console.log(user);
+    if (
+        receiver &&
+        receiver?.username !== loggedInUser?.username &&
+        transferAmount > 0 &&
+        loggedInUser.balance >= transferAmount
+    ) {
+        // delete the amount from loggedin user and add it to receiver account
+        loggedInUser?.movements.push(-transferAmount)
+        receiver?.movements.push(transferAmount)
+        updateUI(loggedInUser)
+
+        inputTransferTo.value = inputTransferAmount.value = ''
     }
 })
