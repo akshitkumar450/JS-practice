@@ -298,5 +298,22 @@ const rest2 = {
 // rest1.owner &&= '<ANONYMOUS>';
 // rest2.owner &&= '<ANONYMOUS>';
 
-console.log(rest1);
-console.log(rest2);
+// console.log(rest1);
+// console.log(rest2);
+
+//////////////////////////////////////////////
+
+// For of loop
+// we can use break or continue
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+// for (const item of menu) console.log(item);
+
+// for (const item of menu.entries()) {
+//     console.log(item);
+// }
+
+// for (const [i, el] of menu.entries()) {
+//     console.log(`${i + 1}: ${el}`);
+// }
+// console.log([...menu.entries()]);
