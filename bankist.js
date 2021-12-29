@@ -117,3 +117,32 @@ const displayBalance = (movements) => {
 }
 
 displayBalance(account1.movements)
+
+// display summary
+
+const displaySummary = (movements) => {
+    const incomes =
+        movements
+            .filter((mov) => mov > 0)
+            .reduce((acc, mov) => acc + mov, 0)
+    labelSumIn.textContent = `${incomes} € `
+
+    const out =
+        movements
+            .filter((mov) => mov < 0)
+            .reduce((acc, mov) => acc + mov, 0)
+    labelSumOut.textContent = `${Math.abs(out)} € `
+
+    const interest =
+        movements
+            .filter((mov) => mov > 0)
+            .map((mov) => mov * 1.2 / 100)
+            .filter((intst, i, arr) => {
+                // console.log(arr);
+                return intst >= 1
+            })
+            .reduce((acc, mov) => acc + mov, 0)
+    labelSumInterest.textContent = `${interest} € `
+}
+
+displaySummary(account1.movements)
