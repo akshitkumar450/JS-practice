@@ -76,9 +76,14 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 /////////////////////////////////////////////////
 
 
-const displayMovements = (movements) => {
+const displayMovements = (movements, sort = false) => {
     containerMovements.innerHTML = ''
-    movements.forEach((mov, idx) => {
+    //making copy of movements with slice method (which returns a new array) and then sort it
+    // sort mutates an array
+
+    const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+    movs.forEach((mov, idx) => {
         const type = mov > 0 ? 'deposit' : 'withdrawal'
         const html = `
         <div class="movements__row">
@@ -236,4 +241,11 @@ btnLoan.addEventListener('click', function (e) {
         updateUI(loggedInUser);
     }
     inputLoanAmount.value = '';
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+    e.preventDefault();
+    displayMovements(loggedInUser.movements, !sorted);
+    sorted = !sorted;
 });
