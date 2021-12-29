@@ -92,3 +92,28 @@ const displayMovements = (movements) => {
 }
 
 displayMovements(account1.movements)
+
+// computing usernames for each account
+
+const displayUserNames = (accounts) => {
+    accounts.forEach((acc, i) => {
+        // console.log(acc.owner.toLowerCase().split(" ").map((name) => name[0]).join(""));
+        acc.username =
+            acc.owner
+                .toLowerCase() //returns a new string
+                .split(" ") //returns a array
+                .map((name) => name[0]) //returns array
+                .join("")
+    })
+}
+
+displayUserNames(accounts)
+
+// displaying balance
+
+const displayBalance = (movements) => {
+    const balance = movements.reduce((acc, mov) => acc + mov, 0)
+    labelBalance.textContent = `${balance} € `
+}
+
+displayBalance(account1.movements)
