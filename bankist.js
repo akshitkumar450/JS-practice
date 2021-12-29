@@ -33,7 +33,7 @@ const account4 = {
     pin: 4444,
 };
 
-const accounts = [account1, account2, account3, account4];
+let accounts = [account1, account2, account3, account4];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -197,5 +197,28 @@ btnTransfer.addEventListener('click', (e) => {
         updateUI(loggedInUser)
 
         inputTransferTo.value = inputTransferAmount.value = ''
+    }
+})
+
+// closing an account
+btnClose.addEventListener('click', (e) => {
+    e.preventDefault()
+    const pin = +inputClosePin.value
+    const name = inputCloseUsername.value
+    const user = accounts.find((acc) => acc.username === name)
+    // console.log(user);
+    // can delete only the current logged user
+    if (name === loggedInUser.username && pin === loggedInUser.pin) {
+
+        // using filter method
+        // accounts = accounts.filter((acc) => acc.username !== user.username)
+
+        // using findIndex method
+        const index = accounts.findIndex((acc) => acc.username === name)
+        // console.log(index);
+        // splice method changes the given array
+        accounts.splice(index, 1)
+        inputClosePin.value = inputCloseUsername.value = ''
+        containerApp.style.opacity = '0'
     }
 })
