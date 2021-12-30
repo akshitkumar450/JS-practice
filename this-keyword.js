@@ -125,3 +125,53 @@ addExpr(2, 5, 8, 12);
 //     return a + b;
 // };
 // addArrow(2, 5, 8);
+
+
+/////////////////////////////////////////////////
+// Hoisting
+
+// Variables
+// console.log(me); //undefined
+// console.log(job); //error
+// console.log(year); //error
+
+// var me = 'Jonas';
+// let job = 'teacher';
+// const year = 1991;
+
+// Functions
+// console.log(addDecl(2, 3)); //5
+// console.log(addExpr(2, 3));
+// console.log(addArrow);
+// console.log(addArrow(2, 3));
+
+// function addDecl(a, b) {
+//     return a + b;
+// }
+
+// const addExpr = function (a, b) {
+//     return a + b;
+// };
+
+// var addArrow = (a, b) => a + b;
+
+// Example
+// console.log(undefined);
+// !undefined ==true
+// if (!numProducts) deleteShoppingCart();
+
+// var numProducts = 10;
+
+// function deleteShoppingCart() {
+//     console.log('All products deleted!');
+// }
+
+// varibales declares with var set properties on window object
+
+// var x = 1;
+// let y = 2;
+// const z = 3;
+
+// console.log(x === window.x);
+// console.log(y === window.y);
+// console.log(z === window.z);
