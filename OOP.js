@@ -12,7 +12,16 @@ const Person = function (firstName, birthYear) {
     // };
 };
 
+// methods which are only available on the function constructor
+// objects created with that are cant access to this method
+// it is not on the prototype
+Person.hey = function () {
+    console.log('Hey there 👋');
+    console.log(this);
+};
+Person.hey();
 const jonas = new Person('Jonas', 1991);
+// jonas.hey() //error
 // console.log(jonas);
 
 // 1. New  empty {} is created
@@ -130,13 +139,23 @@ class PersonCl {
     get fullName() {
         return this._fullName;
     }
+    // Static method
+    // these methods are not available on the objects created by this class
+    // they are only available on the class
+    static hey() {
+        console.log('Hey there 👋');
+        console.log(this);
+    }
 }
 
 const jessica = new PersonCl('Jessica Davis', 1996);
 console.log(jessica);
 jessica.calcAge();
 console.log(jessica.age);
-
+// static methods are on the class only
+PersonCl.hey()
+// objects created from class can not use it
+// jessica.hey() //error
 console.log(jessica.__proto__ === PersonCl.prototype);
 
 const walter = new PersonCl('Walter White', 1965);
