@@ -13,7 +13,7 @@ const Person = function (firstName, birthYear) {
 };
 
 const jonas = new Person('Jonas', 1991);
-console.log(jonas);
+// console.log(jonas);
 
 // 1. New  empty {} is created
 // 2. function is called, this is set the empty {}
@@ -21,8 +21,47 @@ console.log(jonas);
 // 4. function automatically return {} which is not empty now
 
 const matilda = new Person('Matilda', 2017);
-console.log(matilda);
+// console.log(matilda);
 const jack = new Person('Jack', 1975);
-console.log(jack);
+// console.log(jack);
 
-console.log(jonas instanceof Person);
+// console.log(jonas instanceof Person);
+
+////////////////////////////////////////////////
+// Prototypes
+
+// console.log(Person.prototype);
+// setting the calAge function in Person prototype
+// only  one copy of this calAge fn exsits but all the objects created by the Person contructor function can use it
+Person.prototype.calcAge = function () {
+    console.log(2037 - this.birthYear);
+};
+
+// object created by the Person constructor function has access to the property or methods defined in Person prototype
+
+// any object has access to methods and properties from its prototype
+
+// jonas.calcAge()
+// matilda.calcAge()
+
+// function has prototype property
+// console.log(Person);
+
+// console.log(jonas);
+// object has __proto__
+// console.log(jonas.__proto__);
+// console.log(jonas.__proto__ === Person.prototype); //true
+
+// console.log(Person.prototype.isPrototypeOf(jonas)); //true
+// console.log(Person.prototype.isPrototypeOf(matilda)); //true
+// console.log(Person.prototype.isPrototypeOf(Person)); //false
+
+// setting the property on the Person prototype
+// and all the object created by Person consrtuctor function can access that property
+
+// Person.prototype.species = 'Homo Sapiens';
+// console.log(jonas.species, matilda.species);
+
+// console.log(jonas.hasOwnProperty('firstName')); //true
+// console.log(jonas.hasOwnProperty('species'));
+// false
