@@ -351,7 +351,7 @@ class Account {
     #pin;
 
     // static fields
-    static balance = 4500
+    static balance = 4500;
 
     constructor(owner, currency, pin) {
         this.owner = owner
@@ -395,8 +395,19 @@ class Account {
         }
     }
 
+    static helper1() {
+        console.log('help1');
+    }
+    // static methods can use only static field
+    // it cant access properties and methods that are not static
     static helper() {
-        console.log(' static helper ');
+        //error bcz it is not a static method
+        // console.log(this.getMovements()) 
+
+        // this will work as it is a static method can be used inside other static method
+
+        this.helper1()
+        console.log(' static helper ', this.balance);
     }
 }
 // some methods and properties should not be allowed to accessed directly
