@@ -357,14 +357,18 @@ class Account {
 
     // all public methods
     getMovements() {
+        // this will point to current object/class (Account)
+        console.log(this);
         return this.#movements
     }
 
     deposit(val) {
         this.#movements.push(val)
+        return this;
     }
     withdraw(val) {
         this.deposit(-val)
+        return this;
     }
 
     // private methods
@@ -376,6 +380,7 @@ class Account {
         if (this.#approveLoan) {
             this.deposit(val)
             console.log('load requested');
+            return this;
         }
     }
 
@@ -399,3 +404,9 @@ Account.helper()
 // console.log(acc1.#movements);
 // console.log(acc1.#pin);
 // console.log(acc1.#approveLoan(15));
+
+
+// Chaining
+// to chain methods we need to return the current object or this so that we can chain methods
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1.getMovements());
