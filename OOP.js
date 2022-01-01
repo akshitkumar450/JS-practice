@@ -302,6 +302,8 @@ class PersonCl {
 }
 
 // Child class 
+// if in the child class we don't have any extra parameters and all the parameters are same as in parent class ..so in that case we dont need to have constructor or super methods in the child class.
+// it will automatically call contructor of parent class 
 class StudentCl extends PersonCl {
     constructor(fullName, birthYear, course) {
         // Always needs to happen first!
