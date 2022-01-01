@@ -344,8 +344,14 @@ class Account {
     locale = navigator.language;
 
     // private fields (instances)
+    // private fields cant be used outside the class
+
     #movements = [];
+    // making this field as private and setting it in constructor with incoming pin value
     #pin;
+
+    // static fields
+    static balance = 4500
 
     constructor(owner, currency, pin) {
         this.owner = owner
@@ -353,6 +359,11 @@ class Account {
         this.#pin = pin
         // protected field
         // this._movements = []
+    }
+
+    // we can access private fields inside the class
+    showPrivateFields() {
+        console.log(this.#movements, this.#pin);
     }
 
     // all public methods
@@ -371,7 +382,7 @@ class Account {
         return this;
     }
 
-    // private methods
+    // private methods not accessible outside the class but can use inside the class
     #approveLoan(val) {
         return true
     }
@@ -394,6 +405,7 @@ acc1.deposit(150)
 acc1.deposit(1500)
 acc1.withdraw(100)
 acc1.requestLoan(1200)
+acc1.showPrivateFields()
 console.log(acc1.getMovements());
 
 Account.helper()
@@ -410,3 +422,8 @@ Account.helper()
 // to chain methods we need to return the current object or this so that we can chain methods
 acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
 console.log(acc1.getMovements());
+
+// static fields are used only by class itself
+console.log(Account.balance);
+// cant be used on the object created by class
+// console.log(acc1.balance);
