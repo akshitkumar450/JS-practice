@@ -340,34 +340,47 @@ martha.greet()
 // Class example
 
 class Account {
-    age = 45
+    // public field (instances)
+    locale = navigator.language;
+
+    // private fields (instances)
+    #movements = [];
+    #pin;
+
     constructor(owner, currency, pin) {
         this.owner = owner
         this.currency = currency
-        this._pin = pin
+        this.#pin = pin
         // protected field
-        this._movements = []
-        this.locale = navigator.language
+        // this._movements = []
     }
 
+    // all public methods
     getMovements() {
-        return this._movements
+        return this.#movements
     }
 
     deposit(val) {
-        this._movements.push(val)
+        this.#movements.push(val)
     }
     withdraw(val) {
         this.deposit(-val)
     }
-    _approveLoan(val) {
+
+    // private methods
+    #approveLoan(val) {
         return true
     }
+
     requestLoan(val) {
-        if (this._approveLoan) {
+        if (this.#approveLoan) {
             this.deposit(val)
             console.log('load requested');
         }
+    }
+
+    static helper() {
+        console.log(' static helper ');
     }
 }
 // some methods and properties should not be allowed to accessed directly
@@ -377,4 +390,12 @@ acc1.deposit(1500)
 acc1.withdraw(100)
 acc1.requestLoan(1200)
 console.log(acc1.getMovements());
-console.log(acc1);
+
+Account.helper()
+// not works as it is a static method that works only on class ,,not on objects created by class
+// acc1.helper()
+
+// not accessile as it private fields
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
+// console.log(acc1.#approveLoan(15));
