@@ -108,62 +108,61 @@ Person.prototype.calcAge = function () {
 // const PersonCl = class {}
 
 // Class declaration
-class PersonCl {
-    constructor(fullName, birthYear) {
-        this.fullName = fullName;
-        this.birthYear = birthYear;
-    }
+// class PersonCl {
+//     constructor(fullName, birthYear) {
+//         this.fullName = fullName;
+//         this.birthYear = birthYear;
+//     }
 
-    // Instance methods
-    // Methods will be added to .prototype property
-    calcAge() {
-        console.log(2037 - this.birthYear);
-    }
+// Instance methods
+// Methods will be added to .prototype property
+// calcAge() {
+//     console.log(2037 - this.birthYear);
+// }
 
-    greet() {
-        console.log(`Hey ${this.fullName}`);
-    }
+// greet() {
+//     console.log(`Hey ${this.fullName}`);
+// }
 
-    get age() {
-        return 2037 - this.birthYear;
-    }
+// get age() {
+//     return 2037 - this.birthYear;
+// }
 
-    // Set a property that already exists
-    set fullName(name) {
-        if (name.includes(' '))
-            this._fullName = name;
-        else
-            alert(`${name} is not a full name!`);
-    }
+// Set a property that already exists
+// set fullName(name) {
+//     if (name.includes(' '))
+//         this._fullName = name;
+//     else
+//         alert(`${name} is not a full name!`);
+// }
 
-    get fullName() {
-        return this._fullName;
-    }
-    // Static method
-    // these methods are not available on the objects created by this class
-    // they are only available on the class
-    static hey() {
-        console.log('Hey there 👋');
-        console.log(this);
-    }
-}
+// get fullName() {
+//     return this._fullName;
+// }
+// Static method
+// these methods are not available on the objects created by this class
+// they are only available on the class
+//     static hey() {
+//         console.log('Hey there 👋');
+//         console.log(this);
+//     }
+// }
 
-const jessica = new PersonCl('Jessica Davis', 1996);
-console.log(jessica);
-jessica.calcAge();
-console.log(jessica.age);
+// const jessica = new PersonCl('Jessica Davis', 1996);
+// console.log(jessica);
+// jessica.calcAge();
+// console.log(jessica.age);
 // static methods are on the class only
-PersonCl.hey()
 // objects created from class can not use it
 // jessica.hey() //error
-console.log(jessica.__proto__ === PersonCl.prototype);
+// console.log(jessica.__proto__ === PersonCl.prototype);
 
-const walter = new PersonCl('Walter White', 1965);
-console.log(walter);
+// const walter = new PersonCl('Walter White', 1965);
+// console.log(walter);
 // PersonCl.prototype.greet = function () {
 //   console.log(`Hey ${this.firstName}`);
 // };
-jessica.greet();
+// jessica.greet();
 
 // 1. Classes are NOT hoisted
 // 2. Classes are first-class citizens
@@ -172,18 +171,18 @@ jessica.greet();
 
 
 // Setters and Getters in object
-const account = {
-    owner: 'Jonas',
-    movements: [200, 530, 120, 300],
+// const account = {
+//     owner: 'Jonas',
+//     movements: [200, 530, 120, 300],
 
-    get latest() {
-        return this.movements.slice(-1).pop();
-    },
+//     get latest() {
+//         return this.movements.slice(-1).pop();
+//     },
 
-    set latest(mov) {
-        this.movements.push(mov);
-    },
-};
+//     set latest(mov) {
+//         this.movements.push(mov);
+//     },
+// };
 
 // dont call it
 // console.log(account.latest);
@@ -194,25 +193,70 @@ const account = {
 
 ///////////////////////////////////////
 // Object.create
-const PersonProto = {
-    calcAge() {
-        console.log(2037 - this.birthYear);
-    },
+// const PersonProto = {
+//     calcAge() {
+//         console.log(2037 - this.birthYear);
+//     },
 
-    init(firstName, birthYear) {
-        this.firstName = firstName;
-        this.birthYear = birthYear;
-    },
+//     init(firstName, birthYear) {
+//         this.firstName = firstName;
+//         this.birthYear = birthYear;
+//     },
+// };
+
+// const steven = Object.create(PersonProto);
+// console.log(steven);
+// steven.name = 'Steven';
+// steven.birthYear = 2002;
+// steven.calcAge();
+
+// console.log(steven.__proto__ === PersonProto);
+
+// const sarah = Object.create(PersonProto);
+// sarah.init('Sarah', 1979);
+// sarah.calcAge();
+
+
+
+///////////////////////////////////////
+// Inheritance Between "Classes": Constructor Functions
+
+// parent class
+const Person1 = function (firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
 };
 
-const steven = Object.create(PersonProto);
-console.log(steven);
-steven.name = 'Steven';
-steven.birthYear = 2002;
-steven.calcAge();
+Person.prototype.calcAge = function () {
+    console.log(2037 - this.birthYear);
+};
+// child class
+const Student = function (firstName, birthYear, course) {
+    Person1.call(this, firstName, birthYear);
+    this.course = course;
+};
 
-console.log(steven.__proto__ === PersonProto);
+// Linking prototypes
+// setting up the prototype chain
+// child class inherting from parent class
+// should be always before any methods is attached to child class
+Student.prototype = Object.create(Person.prototype);
 
-const sarah = Object.create(PersonProto);
-sarah.init('Sarah', 1979);
-sarah.calcAge();
+Student.prototype.introduce = function () {
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+
+// important to do this
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
