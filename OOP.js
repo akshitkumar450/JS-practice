@@ -334,3 +334,40 @@ const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
 martha.introduce();
 martha.calcAge();
 martha.greet()
+
+
+//////////////////////////////////////////////////
+// Class example
+
+class Account {
+    constructor(owner, currency, pin) {
+        this.owner = owner
+        this.currency = currency
+        this.pin = pin
+        this.movements = []
+        this.locale = navigator.language
+    }
+
+    deposit(val) {
+        this.movements.push(val)
+    }
+    withdraw(val) {
+        this.deposit(-val)
+    }
+    approveLoan(val) {
+        return true
+    }
+    requestLoan(val) {
+        if (this.approveLoan) {
+            this.deposit(val)
+            console.log('load requested');
+        }
+    }
+}
+// some methods and properties should not be allowed to accessed directly
+const acc1 = new Account('jonas', 'inr', 9211)
+acc1.deposit(150)
+acc1.deposit(1500)
+acc1.withdraw(100)
+acc1.requestLoan(1200)
+console.log(acc1);
