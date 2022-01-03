@@ -97,8 +97,10 @@ document.getElementById('btn').addEventListener('click', (e) => {
 //     // console.log('first');
 //     setTimeout(() => {
 //         if (Math.random() > 0.5) {
+// this will be the fulfilled value of the promise can be used in then method
 //             resolve(win())
 //         } else {
+// this will be the rejected value of the promise can be used on catch method
 //             reject(loose())
 //         }
 //     }, 200)
@@ -108,6 +110,10 @@ document.getElementById('btn').addEventListener('click', (e) => {
 //     .then((data) => console.log(data))
 //     .catch((err) => console.error(err.message))
 
+
+// directly resolving or rejecting
+// Promise.resolve('abc').then(x => console.log(x));
+// Promise.reject(new Error('Problem!')).catch(x => console.error(x));
 /////////////////////////////////////////////////////
 
 // geolocation api
